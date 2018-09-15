@@ -9,6 +9,12 @@ const port = process.env.PORT;
 //Passport configs
 require("./config/passport")(passport);
 
+//Mongoose settings
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+  .then(()=> console.log("MongoDb connected"))
+  .catch((err)=> console.log(err))
+
 //Route imports
 const authRoutes = require("./routes/auth");
 
