@@ -13,5 +13,18 @@ router.get('/google/callback',
     // Successful authentication, redirect home.
     res.redirect('/dashboard');
   });
+//check if user is signed in
+router.get("/verify", (req, res)=>{
+  if (req.user) { //if signed in, we should have req.user from passpor session
+    console.log(req.user);
+  } else {
+    console.log("no Auth");
+  }
+})
+// logout
+router.get("/logout", (req, res)=>{
+  req.logout();
+  res.redirect("/");
+})
 
 module.exports = router;
