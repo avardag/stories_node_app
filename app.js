@@ -25,6 +25,8 @@ app.engine('.hbs', exphbs({
   }));
 // Use Handlebars view engine
 app.set('view engine', '.hbs');
+//set static folder
+app.use(express.static(require("path").join(__dirname, "public")))
 
 //set global session vars
 app.use((req, res, next)=>{
@@ -41,10 +43,12 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 //Route imports
 const authRoutes = require("./routes/auth");
 const homeRoutes = require("./routes/home");
+const storiesRoutes = require("./routes/stories");
 
 //ROUTES
 app.use("/", homeRoutes);
 app.use("/auth", authRoutes);
+app.use("/stories", storiesRoutes);
 
 
 //SERVER

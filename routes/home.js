@@ -5,7 +5,10 @@ router.get("/", (req, res) => {
   res.render('home/welcome.hbs');
 });
 router.get("/dashboard", (req, res) => {
-  res.send("Dashboard");
+  res.render("home/dashboard");
+});
+router.get("/about", (req, res) => {
+  res.render("home/about");
 });
 
 
