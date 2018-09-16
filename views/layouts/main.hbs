@@ -9,10 +9,12 @@
   <title>Stories</title>
 </head>
 <body>
-  
-  <div class="container">
-    {{{ body }}}
-  </div>
+  {{> header }}
+  <main>
+    <div class="container">
+      {{{ body }}}
+    </div>
+  </main>
 
   <script
 			  src="http://code.jquery.com/jquery-3.3.1.min.js"
@@ -20,6 +22,12 @@
 			  crossorigin="anonymous">
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+  {{!-- initialize Materialize sidenav --}}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      var instances = M.Sidenav.init(elems);
+    });
+  </script>
 </body>
 </html>
