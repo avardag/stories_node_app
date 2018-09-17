@@ -5,7 +5,11 @@ const {ensureAuth} = require("../helpers/auth");
 const Story = require("../models/Story");
 
 router.get("/", (req, res) => {
-  res.render('stories/index');
+  Story.find({status: "public"})
+  .populate("user")
+  .then(stories=>{
+    res.render('stories/index', {stories});
+    })
 });
 
 // add story form
