@@ -27,12 +27,18 @@
 			  crossorigin="anonymous">
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
   {{!-- initialize Materialize sidenav --}}
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var elems = document.querySelectorAll('.sidenav');
       var instances = M.Sidenav.init(elems);
     });
+    ClassicEditor
+    .create( document.querySelector( '#textBody' ) )
+    .catch( error => {
+        console.error( error );
+    } );
   </script>
 </body>
 </html>
