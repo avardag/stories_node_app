@@ -24,10 +24,17 @@ require("./config/passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
  
+//helpers
+const { truncate, stripTags } = require("./helpers/hbs")
+
 // Register Handlebars view engine
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: {
+      truncate: truncate,
+      stripTags: stripTags
+    }
   }));
 // Use Handlebars view engine
 app.set('view engine', '.hbs');
