@@ -25,7 +25,7 @@ app.use(passport.initialize());
 app.use(passport.session());
  
 //helpers
-const { truncate, stripTags } = require("./helpers/hbs")
+const { truncate, stripTags, formatDate } = require("./helpers/hbs")
 
 // Register Handlebars view engine
 app.engine('.hbs', exphbs({
@@ -33,7 +33,8 @@ app.engine('.hbs', exphbs({
     extname: '.hbs',
     helpers: {
       truncate: truncate,
-      stripTags: stripTags
+      stripTags: stripTags,
+      formatDate: formatDate
     }
   }));
 // Use Handlebars view engine

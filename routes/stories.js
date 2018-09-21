@@ -12,6 +12,15 @@ router.get("/", (req, res) => {
     })
 });
 
+// show single story
+router.get("/:id", (req, res, next)=>{
+  Story.findOne({_id: req.params.id})
+    .populate("user")
+    .then(story=>{
+      res.render("stories/show", {story: story})
+    })
+})
+
 // add story form
 router.get("/add", ensureAuth, (req, res) => {
   res.render('stories/add');
