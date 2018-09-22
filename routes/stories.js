@@ -80,4 +80,13 @@ router.post("/", ensureAuth, (req, res) => {
     .catch(err=> console.log(err))
 
   });
+
+//delete story
+router.delete("/:id", (req, res)=>{
+  Story.remove({_id: req.params.id})
+    .then(_=>{
+      res.redirect("/dashboard");
+    })
+})
+
 module.exports = router;
