@@ -52,6 +52,7 @@ router.put("/:id", (req, res) => {
 router.get("/:id", (req, res, next)=>{
   Story.findOne({_id: req.params.id})
     .populate("user")
+    .populate("comments.commentUser")//to use user info of commenter
     .then(story=>{
       res.render("stories/show", {story: story})
     })
