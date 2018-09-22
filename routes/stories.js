@@ -12,6 +12,11 @@ router.get("/", (req, res) => {
     })
 });
 
+// add story form
+router.get("/add", ensureAuth, (req, res) => {
+  res.render('stories/add');
+});
+
 // show single story
 router.get("/:id", (req, res, next)=>{
   Story.findOne({_id: req.params.id})
@@ -20,13 +25,7 @@ router.get("/:id", (req, res, next)=>{
       res.render("stories/show", {story: story})
     })
 })
-
-// add story form
-router.get("/add", ensureAuth, (req, res) => {
-  res.render('stories/add');
-});
-
-router.post("/", (req, res) => {
+router.post("/", ensureAuth, (req, res) => {
   let allowComments;
   if (req.body.allowComments) {
     allowComments = true
@@ -45,7 +44,7 @@ router.post("/", (req, res) => {
   new Story(newStory)
     .save()
     .then(story=>{
-      res.redirect(`/stories/show/${story._id}`)
+      res.redirect(`/stories/${story._id}`)
     })
     .catch(err=> console.log(err))
 
