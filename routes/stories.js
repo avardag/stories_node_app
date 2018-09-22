@@ -17,6 +17,37 @@ router.get("/add", ensureAuth, (req, res) => {
   res.render('stories/add');
 });
 
+// edit story form
+router.get("/edit/:id", ensureAuth, (req, res) => {
+  Story.findOne({_id: req.params.id})
+    .then(story=>{
+      res.render("stories/edit", {story: story})
+    })
+});
+// edit story form - POST
+router.put("/:id", (req, res) => {
+  
+  Story.findOne({_id: req.params.id})
+    .then(story=>{
+      let allowComments;
+      if (req.body.allowComments) {
+        allowComments = true
+      } else {
+        allowComments = false
+      }
+      //NEw values
+      story.title = req.body.title;
+      story.body = req.body.body;
+      story.status = req.body.status;
+      story.allowComments = allowComments;
+
+      story.save()
+        .then(story=>{
+          res.redirect("/dashboard")
+        })
+    })
+});
+
 // show single story
 router.get("/:id", (req, res, next)=>{
   Story.findOne({_id: req.params.id})

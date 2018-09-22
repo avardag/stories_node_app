@@ -5,6 +5,7 @@ const passport = require("passport");
 const session = require('express-session')
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override")
 
 const app = express();
 const port = process.env.PORT;
@@ -12,6 +13,8 @@ const port = process.env.PORT;
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());// parse application/json
+//MethodOverride MW
+app.use(methodOverride("_method"));
 
 //express session configs
 app.use(session({ //use before passport MW, passport uses express session
