@@ -89,4 +89,23 @@ router.delete("/:id", (req, res)=>{
     })
 })
 
+// COMMENTS
+// add comment action="/stories/comment/{{story.id}}"
+router.post("/comment/:id", (req, res)=>{
+  Story.findOne({_id: req.params.id})
+    .then(story=>{
+      const newComment={
+        commentBody: req.body.commentBody,
+        commentUser: req.user.id
+      }
+      //Add newcomment to stories comments array
+      story.comments.unshift(newComment);
+      story.save()
+        .then(story=>{
+          res.redirect(`/stories/${story.id}`);
+        })
+    })
+    .catch(err=> console.log(err))
+})
+  
 module.exports = router;
