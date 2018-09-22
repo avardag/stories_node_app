@@ -7,6 +7,7 @@ const Story = require("../models/Story");
 router.get("/", (req, res) => {
   Story.find({status: "public"})
   .populate("user")
+  .sort({date: "desc"})
   .then(stories=>{
     res.render('stories/index', {stories});
     })
@@ -21,7 +22,11 @@ router.get("/add", ensureAuth, (req, res) => {
 router.get("/edit/:id", ensureAuth, (req, res) => {
   Story.findOne({_id: req.params.id})
     .then(story=>{
-      res.render("stories/edit", {story: story})
+      if (story.user != req.user.id) {
+        res.redirect("/stories")
+      } else {
+        res.render("stories/edit", {story: story})        
+      }
     })
 });
 // edit story form - POST
